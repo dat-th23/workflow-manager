@@ -8,13 +8,15 @@ export class TasksService {
   constructor(private prisma: PrismaService) {}
 
   async create(dto: CreateTaskDto) {
-    return this.prisma.task.create({
+    // kiểm tra project có tồn tại kh
+
+    return await this.prisma.task.create({
       data: dto,
     });
   }
 
   async findAll() {
-    return this.prisma.task.findMany({
+    return await this.prisma.task.findMany({
       include: {
         project: true,
         assignees: true,
@@ -38,14 +40,14 @@ export class TasksService {
   }
 
   async update(id: string, dto: UpdateTaskDto) {
-    return this.prisma.task.update({
+    return await this.prisma.task.update({
       where: { id },
       data: dto,
     });
   }
 
   async remove(id: string) {
-    return this.prisma.task.delete({
+    return await this.prisma.task.delete({
       where: { id },
     });
   }

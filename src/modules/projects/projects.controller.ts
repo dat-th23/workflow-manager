@@ -40,11 +40,11 @@ export class ProjectsController {
     return this.projectsService.findOne(id);
   }
 
-  @Get('/owner/:user_id')
-  @ApiOperation({ summary: 'Get project by owner' })
-  findAllByOwnerId(@Param('user_id') user_id: string){
-    return this.projectsService.findAllByOwnerId(user_id);
-  }
+  // @Get('/owner/:user_id')
+  // @ApiOperation({ summary: 'Get project by owner' })
+  // findAllByOwnerId(@Param('user_id') user_id: string){
+  //   return this.projectsService.findAllByOwnerId(user_id);
+  // }
 
   @Patch(':id')
   @ApiOperation({ summary: 'Update project by ID' })
