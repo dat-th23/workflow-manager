@@ -5,19 +5,21 @@ import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
 
-  // Swagger config
+  app.setGlobalPrefix('api/v0');
+  app.enableCors();
+
+  // Swagger setup
   const config = new DocumentBuilder()
     .setTitle('Workflow Management System API')
-    .setDescription('NestJS + Prisma REST API')
+    .setDescription('NestJS + Prisma RESTful API')
     .setVersion('1.0')
-    .addBearerAuth()
+    .addBearerAuth() // JWT
     .build();
 
   const document = SwaggerModule.createDocument(app, config);
-  SwaggerModule.setup('api/v0/swagger-ui.html', app, document); 
+  SwaggerModule.setup('api/v0/docs', app, document);
 
-  // http://localhost:3000/api/v0/swagger-ui.html
-
+  // Start server
   await app.listen(process.env.PORT ?? 3000);
 }
 bootstrap();
