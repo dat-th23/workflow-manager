@@ -15,7 +15,6 @@ export class UsersService {
         name: dto.name,
         email: dto.email,
         password: hashedPassword,
-        role: 'USER',
       },
     });
     return user;

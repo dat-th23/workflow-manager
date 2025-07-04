@@ -23,11 +23,10 @@ export class AuthService {
                 email: dto.email,
                 name: dto.name,
                 password: hashedPassword,
-                role: 'USER',
             }
         })
 
-        return this.signToken(user.id, user.email, user.role)
+        return this.signToken(user.id, user.email)
     };
 
     async login(dto: LoginDto) {
@@ -39,11 +38,11 @@ export class AuthService {
         const isMatch = await bcrypt.compare(dto.password, user.password);
         if (!isMatch) throw new UnauthorizedException('Invalid credentials');
     
-        return this.signToken(user.id, user.email, user.role)
+        return this.signToken(user.id, user.email )
     }
 
-    private signToken(id: string, email: string, role: string) {
-        const payload = {sub: id, email, role};
+    private signToken(id: string, email: string) {
+        const payload = {sub: id, email};
         return {
             access_token: this.jwt.sign(payload),
             expires_in: 24*60*60,

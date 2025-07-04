@@ -11,7 +11,7 @@ async function bootstrap() {
   // Swagger setup
   const config = new DocumentBuilder()
     .setTitle('Workflow Management System API')
-    .setDescription('NestJS + Prisma RESTful API')
+    .setDescription('API cho quản lý dự án và nhiệm vụ')
     .setVersion('1.0')
     .addBearerAuth() // JWT
     .build();
