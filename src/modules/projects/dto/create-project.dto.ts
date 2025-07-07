@@ -1,5 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { IsNotEmpty, IsOptional, IsString } from 'class-validator';
+import { IsNotEmpty, IsOptional, IsString, IsUUID } from 'class-validator';
 
 export class CreateProjectDto {
   @ApiProperty({ example: 'Task Manager v2' })
@@ -19,6 +19,6 @@ export class CreateProjectDto {
 
   @ApiProperty({ example: 'user-uuid-123' })
   @IsNotEmpty()
-  @IsString()
+  @IsUUID()
   ownerId: string;
 }

@@ -1,5 +1,5 @@
 import { ApiProperty } from "@nestjs/swagger";
-import { IsDateString, IsEnum, IsNotEmpty, IsOptional, IsString } from "class-validator";
+import { IsDateString, IsEnum, IsNotEmpty, IsOptional, IsString, IsUUID } from "class-validator";
 import { TaskPriority, TaskStatus } from "generated/prisma";
 
 export class CreateTaskDto {
@@ -25,7 +25,7 @@ export class CreateTaskDto {
 
   @ApiProperty({ example: 'project-uuid-123' })
   @IsNotEmpty()
-  @IsString()
+  @IsUUID()
   projectId: string;
 
   @ApiProperty({ example: '2025-07-10T10:00:00Z', required: false })
