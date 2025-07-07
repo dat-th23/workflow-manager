@@ -2,12 +2,12 @@ import { ApiProperty } from "@nestjs/swagger";
 import { IsNotEmpty, IsUUID } from "class-validator";
 
 export class CreateTaskAssigneeDto {
-    @ApiProperty()
+    @ApiProperty({ example: 'task-uuid-123' })
     @IsNotEmpty()
     @IsUUID()
     taskId: string;
-    
-    @ApiProperty()
+
+    @ApiProperty({ example: 'user-uuid-123' })
     @IsNotEmpty()
     @IsUUID()
     userId: string;
