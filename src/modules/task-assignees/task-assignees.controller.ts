@@ -19,16 +19,16 @@ export class TaskAssigneesController {
 
   @Get(':id')
   findOne(@Param('id') id: string) {
-    return this.taskAssigneesService.findOne(+id);
+    return this.taskAssigneesService.findOne(id);
   }
 
   @Patch(':id')
   update(@Param('id') id: string, @Body() updateTaskAssigneeDto: UpdateTaskAssigneeDto) {
-    return this.taskAssigneesService.update(+id, updateTaskAssigneeDto);
+    return this.taskAssigneesService.update(id, updateTaskAssigneeDto);
   }
 
   @Delete(':id')
   remove(@Param('id') id: string) {
-    return this.taskAssigneesService.remove(+id);
+    return this.taskAssigneesService.remove(id);
   }
 }

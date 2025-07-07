@@ -1,26 +1,42 @@
 import { Injectable } from '@nestjs/common';
 import { CreateTaskAssigneeDto } from './dto/create-task-assignee.dto';
 import { UpdateTaskAssigneeDto } from './dto/update-task-assignee.dto';
+import { PrismaService } from 'src/prisma/prisma.service';
 
 @Injectable()
 export class TaskAssigneesService {
-  create(createTaskAssigneeDto: CreateTaskAssigneeDto) {
-    return 'This action adds a new taskAssignee';
+  constructor(private readonly prisma: PrismaService) {}
+
+  async create(dto: CreateTaskAssigneeDto) {
+    return await this.prisma.taskAssignee.create({ data: dto });
   }
 
-  findAll() {
-    return `This action returns all taskAssignees`;
+  async findAll() {
+    return await this.prisma.taskAssignee.findMany({ include: { task: true, user: true } });
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} taskAssignee`;
+  async findOne(id: string) {
+    return await this.prisma.taskAssignee.findUnique({
+      where: {id},
+      include: {
+        task: true,
+        user: true,
+      }
+    })
   }
 
-  update(id: number, updateTaskAssigneeDto: UpdateTaskAssigneeDto) {
-    return `This action updates a #${id} taskAssignee`;
+  async update(id: string, dto: UpdateTaskAssigneeDto) {
+    return await this.prisma.taskAssignee.update({
+      where: {id},
+      data: dto, 
+    })
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} taskAssignee`;
+  async findByTask(taskId: string) {
+    return await this.prisma.taskAssignee.findMany({ where: { taskId }, include: { user: true } });
+  }
+
+  async remove(id: string) {
+    return await this.prisma.taskAssignee.delete({ where: { id } });
   }
 }
