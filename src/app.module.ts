@@ -1,4 +1,4 @@
-import { Module } from '@nestjs/common';
+import { MiddlewareConsumer, Module, NestModule } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { UsersModule } from './modules/users/users.module';
@@ -11,6 +11,7 @@ import { ProjectsModule } from './modules/projects/projects.module';
 import { MembersModule } from './modules/members/members.module';
 import { CommentsModule } from './modules/comments/comments.module';
 import { TaskAssigneesModule } from './modules/task-assignees/task-assignees.module';
+import { LoggerMiddleware } from './common/middlewares/logger.middleware';
 @Module({
   imports: [
     ConfigModule.forRoot({ isGlobal: true }),
@@ -30,4 +31,8 @@ import { TaskAssigneesModule } from './modules/task-assignees/task-assignees.mod
   controllers: [AppController],
   providers: [AppService],
 })
-export class AppModule {}
+export class AppModule implements NestModule{
+  configure(consumer: MiddlewareConsumer) {
+    consumer.apply(LoggerMiddleware).forRoutes('*');
+  }
+}
